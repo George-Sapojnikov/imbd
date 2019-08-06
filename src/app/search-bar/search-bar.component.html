@@ -1,0 +1,10 @@
+<div class="search-box">
+    <mat-form-field>
+        <input placeholder="Введите название фильма" #filmTitle (input)="showTips(filmTitle.value);" type="text" matInput [matAutocomplete]="auto" (keyup.enter)="search(filmTitle.value)">
+    </mat-form-field>
+    <button mat-raised-button color="primary" type="submit" (click)="search(filmTitle.value)">Искать</button>
+</div>
+
+<mat-autocomplete #auto="matAutocomplete">
+    <mat-option *ngFor="let tip of tips" [value]="tip.Title"><a [routerLink]="['/filmCard', tip?.imdbID]"><img *ngIf="tip?.Poster !== 'N/A'" [src]="tip?.Poster" width="30px" alt="" style="margin-right: 10px;">{{ tip.Title }}</a></mat-option>
+</mat-autocomplete>

@@ -1,0 +1,29 @@
+<!-- <ol>
+    <li *ngFor="let result of results"><a [routerLink]="['/filmCard', result?.imdbID]">{{ result.Title }}</a></li>
+</ol> -->
+
+<table mat-table [dataSource]="results">
+
+    <ng-container matColumnDef="Poster">
+        <th mat-header-cell *matHeaderCellDef> Poster </th>
+        <td mat-cell *matCellDef="let element"> <img *ngIf="details?.Poster !== 'N/A'" [src]="element?.Poster" width="50px" alt=""><span *ngIf="element?.Poster == 'N/A'">нет постера</span> </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Title">
+        <th mat-header-cell *matHeaderCellDef> Title </th>
+        <td mat-cell *matCellDef="let element"> <a [routerLink]="['/filmCard', element?.imdbID]">{{ element.Title }}</a> </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Year">
+        <th mat-header-cell *matHeaderCellDef> Year </th>
+        <td mat-cell *matCellDef="let element"> {{element.Year}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Type">
+        <th mat-header-cell *matHeaderCellDef> Type </th>
+        <td mat-cell *matCellDef="let element"> {{element.Type}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>

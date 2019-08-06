@@ -1,0 +1,4 @@
+<p *ngIf="details">
+    <img *ngIf="details?.Poster !== 'N/A'" [src]="details?.Poster" width="200px" alt="">
+    {{ details | json }}
+</p>
