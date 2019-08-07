@@ -1,0 +1,24 @@
+<mat-card *ngIf="filmDetails">
+    <mat-card-header>
+        <mat-card-title>{{ filmDetails?.Title }}</mat-card-title>
+        <mat-card-subtitle>Год: {{ filmDetails?.Year }} Рейтинг: {{ filmDetails?.Ratings[0].Value }}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+        <div style="display: flex">
+            <img style="margin-right: 20px; margin-bottom: 20px;" *ngIf="filmDetails?.Poster !== 'N/A'"
+                [src]="filmDetails?.Poster" width="150px" alt="">
+            <div>
+                <ul>
+                    <li>Release: {{ filmDetails?.Released }}</li>
+                    <li>Runtime: {{ filmDetails?.Runtime }}</li>
+                    <li>Actors: {{ filmDetails?.Actors }}</li>
+                    <li>lilot: {{ filmDetails?.Plot }}</li>
+                    <li>Language: {{ filmDetails?.Language }}</li>
+                    <li>Country: {{ filmDetails?.Country }}</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- {{ filmDetails | json }} -->
+    </mat-card-content>
+</mat-card>

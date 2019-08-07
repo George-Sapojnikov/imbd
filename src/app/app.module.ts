@@ -13,7 +13,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { SearchResultsComponent } from './search-results/search-results.component';
 import { FilmCardComponent } from './film-card/film-card.component';
 import { MatTableModule } from '@angular/material/table';
-
+import { HistoryComponent } from './history/history.component';
+import { MatCardModule } from '@angular/material/card';
+import { FilmDetailsCardComponent } from './film-details-card/film-details-card.component';
 
 
 @NgModule({
@@ -21,7 +23,9 @@ import { MatTableModule } from '@angular/material/table';
     AppComponent,
     SearchBarComponent,
     SearchResultsComponent,
-    FilmCardComponent
+    FilmCardComponent,
+    HistoryComponent,
+    FilmDetailsCardComponent
   ],
   imports: [
     BrowserModule,
@@ -32,7 +36,8 @@ import { MatTableModule } from '@angular/material/table';
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    MatTableModule
+    MatTableModule,
+    MatCardModule
   ],
   providers: [],
   bootstrap: [AppComponent]

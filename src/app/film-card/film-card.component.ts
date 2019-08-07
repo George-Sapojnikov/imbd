@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { Observable, Subscription } from 'rxjs';
+import { HistoryService } from '../services/history.service';
 
 @Component({
   selector: 'app-film-card',
@@ -14,7 +15,7 @@ export class FilmCardComponent implements OnInit, OnDestroy {
   httpGetSubscription: Subscription;
   paramMapSubscription: Subscription;
 
-  constructor(private route: ActivatedRoute, private http: HttpClient) { }
+  constructor(private route: ActivatedRoute, private http: HttpClient, private historyService: HistoryService) { }
 
   ngOnInit() {
     // this.id = this.route.snapshot.paramMap.get('id');
@@ -28,6 +29,7 @@ export class FilmCardComponent implements OnInit, OnDestroy {
     this.httpGetSubscription = this.http.get(`http://www.omdbapi.com/?apikey=35a8c198&i=${id}`)
     .subscribe( (details) => {
       this.details = details;
+      this.historyService.addFilm(details);
     });
   }
 

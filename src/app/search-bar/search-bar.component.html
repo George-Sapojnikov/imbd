@@ -3,6 +3,7 @@
         <input placeholder="Введите название фильма" #filmTitle (input)="showTips(filmTitle.value);" type="text" matInput [matAutocomplete]="auto" (keyup.enter)="search(filmTitle.value)">
     </mat-form-field>
     <button mat-raised-button color="primary" type="submit" (click)="search(filmTitle.value)">Искать</button>
+    <button mat-raised-button color="default" type="button" [routerLink]="['/history']">История поиска</button>
 </div>
 
 <mat-autocomplete #auto="matAutocomplete">

@@ -1,4 +1,6 @@
-<p *ngIf="details">
+<!-- <p *ngIf="details">
     <img *ngIf="details?.Poster !== 'N/A'" [src]="details?.Poster" width="200px" alt="">
     {{ details | json }}
-</p>
+</p> -->
+
+<app-film-details-card [filmDetails]="details"></app-film-details-card>
