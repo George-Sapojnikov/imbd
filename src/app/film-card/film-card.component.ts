@@ -26,7 +26,7 @@ export class FilmCardComponent implements OnInit, OnDestroy {
   }
 
   getFilmObj(id: string) {
-    this.httpGetSubscription = this.http.get(`http://www.omdbapi.com/?apikey=35a8c198&i=${id}`)
+    this.httpGetSubscription = this.http.get(`https://www.omdbapi.com/?apikey=35a8c198&i=${id}`)
     .subscribe( (details) => {
       this.details = details;
       this.historyService.addFilm(details);

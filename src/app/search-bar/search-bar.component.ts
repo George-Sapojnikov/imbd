@@ -26,7 +26,7 @@ export class SearchBarComponent implements OnInit {
 
   showTips(title: string) {
     if (title.length >= 5) {
-      this.http.get(`http://www.omdbapi.com/?apikey=35a8c198&page=1&s=${title}`)
+      this.http.get(`https://www.omdbapi.com/?apikey=35a8c198&page=1&s=${title}`)
         .subscribe((data: any) => {
           if (Array.isArray(data.Search)) {
             this.tips = [...data.Search.slice(0, 5)];
@@ -38,7 +38,7 @@ export class SearchBarComponent implements OnInit {
 
   search(title: string) {
     console.log(title);
-    this.http.get<SearchResults>(`http://www.omdbapi.com/?apikey=35a8c198&page=1&s=${title}`)
+    this.http.get<SearchResults>(`https://www.omdbapi.com/?apikey=35a8c198&page=1&s=${title}`)
       .subscribe((data) => {
         console.log(data);
         // if no results data.Search is undefined
@@ -48,7 +48,7 @@ export class SearchBarComponent implements OnInit {
 
         // get more results (up to 20) if totalResults more than 10
         if (+data.totalResults > 10) {
-          this.http.get<SearchResults>(`http://www.omdbapi.com/?apikey=35a8c198&page=2&s=${title}`).subscribe((data) => {
+          this.http.get<SearchResults>(`https://www.omdbapi.com/?apikey=35a8c198&page=2&s=${title}`).subscribe((data) => {
             this.resultsService.setResults([...this.resultsService.getResults(), ...data.Search]);
           });
         }
