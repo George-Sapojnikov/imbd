@@ -3,4 +3,4 @@
     {{ details | json }}
 </p> -->
 
-<app-film-details-card [filmDetails]="details"></app-film-details-card>
+<app-film-details-card [filmDetails]="details$ | async"></app-film-details-card>

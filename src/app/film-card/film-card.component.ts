@@ -3,6 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { Observable, Subscription } from 'rxjs';
 import { HistoryService } from '../services/history.service';
+import { map, switchMap } from 'rxjs/operators';
+import { FilmDetails } from '../interfaces/filmDetails';
 
 @Component({
   selector: 'app-film-card',
@@ -10,31 +12,22 @@ import { HistoryService } from '../services/history.service';
   styleUrls: ['./film-card.component.scss']
 })
 export class FilmCardComponent implements OnInit, OnDestroy {
-  id: string;
-  details: {};
-  httpGetSubscription: Subscription;
-  paramMapSubscription: Subscription;
+  details$: Observable<FilmDetails>;
+  addToHistorySubscription: Subscription;
 
   constructor(private route: ActivatedRoute, private http: HttpClient, private historyService: HistoryService) { }
 
   ngOnInit() {
-    // this.id = this.route.snapshot.paramMap.get('id');
-    this.paramMapSubscription = this.route.paramMap.subscribe( (paramMap) => {
-      this.id = paramMap.get('id');
-      this.getFilmObj(this.id);
-    });
-  }
+    this.details$ = this.route.paramMap.pipe(
+      map(paramMap => paramMap.get('id')),
+      switchMap(id => this.http.get<FilmDetails>(`https://www.omdbapi.com/?apikey=35a8c198&i=${id}`)),
+    );
 
-  getFilmObj(id: string) {
-    this.httpGetSubscription = this.http.get(`https://www.omdbapi.com/?apikey=35a8c198&i=${id}`)
-    .subscribe( (details) => {
-      this.details = details;
-      this.historyService.addFilm(details);
-    });
+    this.addToHistorySubscription = this.details$.subscribe(details => this.historyService.addFilm(details));
   }
 
   ngOnDestroy(): void {
-    this.httpGetSubscription.unsubscribe();
+    this.addToHistorySubscription.unsubscribe();
   }
 
 }
