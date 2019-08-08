@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { Observable, Subscription } from 'rxjs';
@@ -11,7 +11,7 @@ import { FilmDetails } from '../interfaces/filmDetails';
   templateUrl: './film-card.component.html',
   styleUrls: ['./film-card.component.scss']
 })
-export class FilmCardComponent implements OnInit, OnDestroy {
+export class FilmCardComponent implements OnInit {
   details$: Observable<FilmDetails>;
   addToHistorySubscription: Subscription;
 
@@ -21,13 +21,13 @@ export class FilmCardComponent implements OnInit, OnDestroy {
     this.details$ = this.route.paramMap.pipe(
       map(paramMap => paramMap.get('id')),
       switchMap(id => this.http.get<FilmDetails>(`https://www.omdbapi.com/?apikey=35a8c198&i=${id}`)),
+      map(datails => {
+        // add film details to history service
+        this.historyService.addFilm(datails);
+        return datails;
+      })
     );
 
-    this.addToHistorySubscription = this.details$.subscribe(details => this.historyService.addFilm(details));
-  }
-
-  ngOnDestroy(): void {
-    this.addToHistorySubscription.unsubscribe();
   }
 
 }
