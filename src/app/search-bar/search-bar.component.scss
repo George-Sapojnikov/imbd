@@ -6,4 +6,11 @@ mat-form-field {
 .search-box {
     width: 350px; 
     margin: 10px auto 0 auto;
+    margin-top: 14px;
+}
+
+mat-progress-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
 }

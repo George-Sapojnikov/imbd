@@ -1,8 +1,10 @@
+<mat-progress-bar *ngIf="isSearching" mode="indeterminate"></mat-progress-bar>
+
 <div class="search-box">
     <mat-form-field>
-        <input placeholder="Введите название фильма" #filmTitle (input)="tipsSubject$.next(filmTitle.value);" type="text" matInput [matAutocomplete]="auto" (keyup.enter)="search(filmTitle.value)">
+        <input placeholder="Введите название фильма" #filmTitle (input)="tipsSubject$.next(filmTitle.value);" type="text" matInput [matAutocomplete]="auto" (keyup.enter)="searchSubject$.next(filmTitle.value)">
     </mat-form-field>
-    <button mat-raised-button color="primary" type="submit" (click)="search(filmTitle.value)">Искать</button>
+    <button mat-raised-button color="primary" type="submit" (click)="searchSubject$.next(filmTitle.value)">Искать</button>
     <button mat-raised-button color="default" type="button" [routerLink]="['/history']">История поиска</button>
 </div>
 

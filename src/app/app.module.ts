@@ -16,6 +16,8 @@ import { MatTableModule } from '@angular/material/table';
 import { HistoryComponent } from './history/history.component';
 import { MatCardModule } from '@angular/material/card';
 import { FilmDetailsCardComponent } from './film-details-card/film-details-card.component';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+
 
 
 @NgModule({
@@ -37,7 +39,8 @@ import { FilmDetailsCardComponent } from './film-details-card/film-details-card.
     MatInputModule,
     MatButtonModule,
     MatTableModule,
-    MatCardModule
+    MatCardModule,
+    MatProgressBarModule
   ],
   providers: [],
   bootstrap: [AppComponent]
