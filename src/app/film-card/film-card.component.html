@@ -1,6 +1,8 @@
-<!-- <p *ngIf="details">
-    <img *ngIf="details?.Poster !== 'N/A'" [src]="details?.Poster" width="200px" alt="">
-    {{ details | json }}
-</p> -->
-
-<app-film-details-card [filmDetails]="details$ | async"></app-film-details-card>
+<div *ngIf="details$ | async as details; else loading">
+    <app-film-details-card [filmDetails]="details"></app-film-details-card>
+</div>
+<ng-template #loading>
+    <h3 style="text-align: center;">
+        Ожидаем данные...
+    </h3>
+</ng-template>

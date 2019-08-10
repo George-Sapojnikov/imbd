@@ -1,22 +1,23 @@
 import { Injectable } from '@angular/core';
+import { FilmDetails } from '../interfaces/filmDetails';
 
 @Injectable({
   providedIn: 'root'
 })
 export class HistoryService {
 
-  private history: {}[] = [];
+  private history: FilmDetails[] = [];
 
   constructor() { }
 
-  addFilm(film: {}): void {
+  addFilm(film: FilmDetails): void {
     this.history.unshift(film);
     if (this.history.length > 10) {
       this.history.pop();
     }
   }
 
-  getFilms() {
+  getFilms(): FilmDetails[] {
     return this.history;
   }
 }

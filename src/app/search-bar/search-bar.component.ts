@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { ResultsService } from '../services/results.service';
-import { map } from 'rxjs/operators';
 
 export interface SearchResults {
   Search?: {}[];
