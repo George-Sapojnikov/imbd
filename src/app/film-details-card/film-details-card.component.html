@@ -1,7 +1,7 @@
 <mat-card *ngIf="filmDetails">
     <mat-card-header>
         <mat-card-title>{{ filmDetails?.Title }}</mat-card-title>
-        <mat-card-subtitle>Год: {{ filmDetails?.Year }} Рейтинг: {{ filmDetails?.Ratings[0].Value }}</mat-card-subtitle>
+        <mat-card-subtitle>Год: {{ filmDetails?.Year }} Рейтинг: {{ filmDetails?.Ratings[0]?.Value }}</mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
         <div style="display: flex">

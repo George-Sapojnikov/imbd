@@ -2,9 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { ResultsService } from '../services/results.service';
+import { Observable, Subject } from 'rxjs';
+import { filter, switchMap, map, debounceTime } from 'rxjs/operators';
+import { SearchResultItem } from '../interfaces/searchResultItem';
 
 export interface SearchResults {
-  Search?: {}[];
+  Search?: SearchResultItem[];
   totalResults: string;
   Response: string;
 }
@@ -15,24 +18,25 @@ export interface SearchResults {
   styleUrls: ['./search-bar.component.scss']
 })
 export class SearchBarComponent implements OnInit {
-  results = [];
-  tips = [];
+  tipsSubject$: Subject<string>;
+  tipsObservable$: Observable<SearchResultItem[]>;
 
   constructor(private http: HttpClient, private router: Router, private resultsService: ResultsService) { }
 
   ngOnInit() {
-  }
-
-  showTips(title: string) {
-    if (title.length >= 5) {
-      this.http.get(`https://www.omdbapi.com/?apikey=35a8c198&page=1&s=${title}`)
-        .subscribe((data: any) => {
+    this.tipsSubject$ = new Subject<string>();
+    this.tipsObservable$ = this.tipsSubject$.pipe(
+      filter((str: string) => str.length >= 5),
+      debounceTime(500),
+      switchMap(searchStr => this.http.get<SearchResults>(`https://www.omdbapi.com/?apikey=35a8c198&page=1&s=${searchStr}`)),
+      map(
+        (data) => {
           if (Array.isArray(data.Search)) {
-            this.tips = [...data.Search.slice(0, 5)];
-            console.log('Tips array: ', this.tips);
+            return [...data.Search.slice(0, 5)];
           }
-        });
-    }
+        }
+      )
+    );
   }
 
   search(title: string) {
